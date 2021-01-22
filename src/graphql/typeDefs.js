@@ -21,7 +21,6 @@ module.exports = gql`
     lastName: String!
     age: Int
     email: String
-    addressId: ID
   }
 
   input addBookInput {

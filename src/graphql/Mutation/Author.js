@@ -1,24 +1,11 @@
 const Author = require('../../models/Author')
 
-const addAuthor = async (obj, {
-  firstName, lastName, age, email, addressId,
-}, context) => {
+const addAuthor = async (obj, { author }, context) => {
   try {
-    const newAuthor = await Author.transaction(async trx => {
-      const author = await Author.query(trx).insert({
-        firstName,
-        lastName,
-        age,
-        email,
-        addressId,
-      }).returning('*')
-      await author.$relatedQuery('address', trx).insert(address)
-      return author
-    })
-
-    return newAuthor
+    const a = await Author.query().insert(author).returning('*')
+    return a
   } catch (error) {
-    throw new Error('ERROR: failed at adding new Author')
+    throw new Error(`ERROR: failed at adding new Author \n ${error.message}`)
   }
 }
 
