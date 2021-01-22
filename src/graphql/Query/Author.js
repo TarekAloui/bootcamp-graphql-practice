@@ -4,7 +4,7 @@ const Book = require('../../models/Book')
 
 const allAuthors = async () => {
   try {
-    const authors = await Author.query()
+    const authors = await Author.query().limit(5) // reason for limit is to avoid db max connection error for the front-end requests
     return authors
   } catch (error) {
     throw new Error('ERROR: failed to get all authors')
